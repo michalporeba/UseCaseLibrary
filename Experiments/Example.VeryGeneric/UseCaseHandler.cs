@@ -9,48 +9,60 @@ namespace Example.VeryGeneric
 
         public UseCaseHandler(IPrinter printer)
         {
-            _printer = _printer;
+            _printer = printer;
         }
         
         public void Do<T>(T target)
             where T : ICommand
         {
-            target.Execute();
+            Execute(() =>
+            {
+                target.Execute();
+                return true;
+            });
         }
 
         public void Do<T, T1>(T target, T1 p1)
             where T : ICommand<T1>
         {
-            target.Execute(p1);
+            Execute(() =>
+            {
+                target.Execute(p1);
+                return true;
+            });
         }
 
         public void Do<T, T1, T2>(T target, T1 p1, T2 p2)
             where T : ICommand<T1, T2>
         {
-            target.Execute(p1, p2);
+            Execute(() =>
+            {
+                target.Execute(p1, p2);
+                return true;
+            });
         }
 
         public TResult Query<T, TResult>(T target)
             where T : IQuery<TResult>
         {
-            return target.Query();
+            return Execute(target.Query);
         }
 
         public TResult Query<T, T1, TResult>(T target, T1 p1)
             where T : IQuery<T1, TResult>
         {
-            return target.Query(p1);
+            return Execute(() => target.Query(p1));
         }
 
         public TResult Query<T, T1, T2, TResult>(T target, T1 p1, T2 p2)
             where T : IQuery<T1, T2, TResult>
         {
-            return target.Query(p1, p2);
+            return Execute(() => target.Query(p1, p2));
         }
 
         private T Execute<T>(Func<T> func)
         {
-            var result = default(T);
+            T result;
             
             _printer.Print("Log: Starting execution of a use case");
             try

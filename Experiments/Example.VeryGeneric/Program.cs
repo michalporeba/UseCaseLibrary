@@ -15,7 +15,7 @@ namespace Example.VeryGeneric
             var adder = new Add();
             var thrower = new Throw();
             
-            handler.Do(greeter, "Michal");
+            handler.Do(greeter, "World");
             var result = handler.Query<IQuery<int, int, int>, int, int, int>(adder, 1, 2);
             handler.Do(thrower);
         }

@@ -9,20 +9,20 @@ A search for simpler translation between use case modelling, development and exe
 
 ## Expermients 
 
-option 0
+### Option 0 (Example.Plain)
 ```
-usecase.Say("hello");
+usecase.Greet("World");
 return usecase.Add(1,2);
 ```
 
-option 1
+### Option 1
 ```
 handler.Invoke(usecase, x => x.Say("hello"));
 return handler.Query(usecase, x => x.Add(1,2));
 ```
 Potentially the handler be static. The syntax is very concise, but it looks a bit odd and is not obvious what it is. Dependencies would haver to be both on the handler and the usecase to ensure both are instantiated by IoC container. 
 
-option 2
+### Option 2
 ```
 handler.On(usecase).Invoke(x => x.Say("hello"));
 return handler.Using(usecase).Query(x => x.Add(1,2));
@@ -30,7 +30,7 @@ return handler.Using(usecase).Query(x => x.Add(1,2));
 Modern looking fluent interface, but essentially it is still the above option 1 and it is longer
 
 
-option 3
+### Option 3
 ```
 var proxy = UseCase.Factory.Create<Hello>();
 proxy.Do(x => x.Say("hello"));
@@ -43,14 +43,24 @@ Moq like approach with `Expression` provides access to the type, and isntance wh
 
 Autofac type resolvers could be used to make it less obtrusive, but likely it would require a dependency on a specific proxy like `IUseCase<Hello>` which doesn't look too bad. 
 
-option 4
+### Option 4 (Example.VeryGeneric)
 ```
 handler.Do(usecase, "Hello");
 return handler.Do(usecase, 1, 2));
 ```
-quite elegant, and in line with Func<> or Action<> approach but there is no easy solution to returning values
+Estetically pleasing, but it would work with only one standard method name. 
+It requires a lot of interfaces to be defined, the same as 16 `Action` and 16 `Func` defined by the .net framework. It is in line with what Microsoft has done, but some of 
+their methods tend to go agains OOP and might not be the best choice. 
 
-option 5
+There is also a practical problem. I was not able to make the query look like the example above, and instead this what I ended up with:
+
+```
+return handler.Query<IQuery<int, int, int>, int, int, int>(adder, 1, 2);
+```
+Unless there is a way to simplify it this appraoch will not be of any use. 
+
+
+### Option 5 (Example.SimpleExpression)
 ```
 handler.Do(() => usecase.Say("Hello"))
 return handler.Do(() => usecase.Add(1,2));
