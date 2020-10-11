@@ -67,3 +67,15 @@ return handler.Do(() => usecase.Add(1,2));
 ```
 
 Very flexiblty, but there is no obvious access to the use case type or instance.
+
+## Next steps
+
+ [ ] add [AspectInjector](https://github.com/pamidur/aspect-injector) implementation.
+ [ ] consider implementing DynamiProxy (old RealProxy) way just for comparison. [check this](https://nearsoft.com/blog/aspect-oriented-programming-aop-in-net-core-and-c-using-autofac-and-dynamicproxy/)
+ [ ] write description of the use case approach, and what are the expectations
+ [ ] consider why existing AOP libraries are not a good fit (they might be?)
+ [ ] add registrations for handlers (before and after execution)
+ [ ] add registrations for error handling including exception translation
+ [ ] add output converters to various channels (perhaps a builder pattern)
+ [ ] retries (with cashed payload)
+ 
