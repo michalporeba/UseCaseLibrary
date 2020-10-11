@@ -1,7 +1,17 @@
-﻿namespace Example.VeryGeneric
+﻿using System;
+using UseCases;
+
+namespace Example.VeryGeneric
 {
     public class UseCaseHandler
     {
+        private readonly IPrinter _printer;
+
+        public UseCaseHandler(IPrinter printer)
+        {
+            _printer = _printer;
+        }
+        
         public void Do<T>(T target)
             where T : ICommand
         {
@@ -36,6 +46,25 @@
             where T : IQuery<T1, T2, TResult>
         {
             return target.Query(p1, p2);
+        }
+
+        private T Execute<T>(Func<T> func)
+        {
+            var result = default(T);
+            
+            _printer.Print("Log: Starting execution of a use case");
+            try
+            {
+                result = func.Invoke();
+                _printer.Print("Log: Finished execution of a use case");
+            }
+            catch (Exception ex)
+            {
+                _printer.Print("Log: Failed to execute a use case");
+                throw;
+            }
+
+            return result;
         }
     }
 }

@@ -1,4 +1,5 @@
 ﻿using System;
+using UC = UseCases;
 using Example.VeryGeneric.UseCases;
 
 namespace Example.VeryGeneric
@@ -7,15 +8,16 @@ namespace Example.VeryGeneric
     {
         static void Main(string[] args)
         {
-            var printer = new Printer();
+            var printer = new UC.Printer();
             
-            var handler = new UseCaseHandler();
+            var handler = new UseCaseHandler(printer);
             var greeter = new Hello(printer);
             var adder = new Add();
             var thrower = new Throw();
             
             handler.Do(greeter, "Michal");
-            
+            var result = handler.Query<IQuery<int, int, int>, int, int, int>(adder, 1, 2);
+            handler.Do(thrower);
         }
     }
 }
