@@ -13,6 +13,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Example.VeryGeneric", "Exam
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Example.MockLike", "Example.MockLike\Example.MockLike.csproj", "{512CB02D-D924-4E38-95BC-41C4BE4D8E95}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Example.AspectInjector", "Example.AspectInjector\Example.AspectInjector.csproj", "{DA86049F-59AE-4D61-9B73-FDB40B2AD1ED}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -86,5 +88,17 @@ Global
 		{512CB02D-D924-4E38-95BC-41C4BE4D8E95}.Release|x64.Build.0 = Release|Any CPU
 		{512CB02D-D924-4E38-95BC-41C4BE4D8E95}.Release|x86.ActiveCfg = Release|Any CPU
 		{512CB02D-D924-4E38-95BC-41C4BE4D8E95}.Release|x86.Build.0 = Release|Any CPU
+		{DA86049F-59AE-4D61-9B73-FDB40B2AD1ED}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DA86049F-59AE-4D61-9B73-FDB40B2AD1ED}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DA86049F-59AE-4D61-9B73-FDB40B2AD1ED}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{DA86049F-59AE-4D61-9B73-FDB40B2AD1ED}.Debug|x64.Build.0 = Debug|Any CPU
+		{DA86049F-59AE-4D61-9B73-FDB40B2AD1ED}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{DA86049F-59AE-4D61-9B73-FDB40B2AD1ED}.Debug|x86.Build.0 = Debug|Any CPU
+		{DA86049F-59AE-4D61-9B73-FDB40B2AD1ED}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DA86049F-59AE-4D61-9B73-FDB40B2AD1ED}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DA86049F-59AE-4D61-9B73-FDB40B2AD1ED}.Release|x64.ActiveCfg = Release|Any CPU
+		{DA86049F-59AE-4D61-9B73-FDB40B2AD1ED}.Release|x64.Build.0 = Release|Any CPU
+		{DA86049F-59AE-4D61-9B73-FDB40B2AD1ED}.Release|x86.ActiveCfg = Release|Any CPU
+		{DA86049F-59AE-4D61-9B73-FDB40B2AD1ED}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
