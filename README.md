@@ -22,7 +22,7 @@ return handler.Query(usecase, x => x.Add(1,2));
 ```
 Potentially the handler be static. The syntax is very concise, but it looks a bit odd and is not obvious what it is. Dependencies would haver to be both on the handler and the usecase to ensure both are instantiated by IoC container. 
 
-### Option 2
+### Option 2 (Example.FluidExecutor)
 ```
 handler.On(usecase).Invoke(x => x.Say("hello"));
 return handler.Using(usecase).Query(x => x.Add(1,2));
@@ -30,7 +30,9 @@ return handler.Using(usecase).Query(x => x.Add(1,2));
 Modern looking fluent interface, but essentially it is still the above option 1 and it is longer
 
 
-### Option 3
+### Option 3 (Example.MockLike)
+This example is influenced by the Moq implementation of Mocks.
+
 ```
 var proxy = UseCase.Factory.Create<Hello>();
 proxy.Do(x => x.Say("hello"));
@@ -69,13 +71,12 @@ return handler.Do(() => usecase.Add(1,2));
 Very flexiblty, but there is no obvious access to the use case type or instance.
 
 ## Next steps
-
- [ ] add [AspectInjector](https://github.com/pamidur/aspect-injector) implementation.
- [ ] consider implementing DynamiProxy (old RealProxy) way just for comparison. [check this](https://nearsoft.com/blog/aspect-oriented-programming-aop-in-net-core-and-c-using-autofac-and-dynamicproxy/)
- [ ] write description of the use case approach, and what are the expectations
- [ ] consider why existing AOP libraries are not a good fit (they might be?)
- [ ] add registrations for handlers (before and after execution)
- [ ] add registrations for error handling including exception translation
- [ ] add output converters to various channels (perhaps a builder pattern)
- [ ] retries (with cashed payload)
- 
+ - [ ] add [AspectInjector](https://github.com/pamidur/aspect-injector) implementation.
+ - [ ] consider implementing DynamiProxy (old RealProxy) way just for comparison. [check this](https://nearsoft.com/blog/aspect-oriented-programming-aop-in-net-core-and-c-using-autofac-and-dynamicproxy/)
+ - [ ] write description of the use case approach, and what are the expectations
+ - [ ] consider why existing AOP libraries are not a good fit (they might be?)
+ - [ ] add registrations for handlers (before and after execution)
+ - [ ] add registrations for error handling including exception translation
+ - [ ] add output converters to various channels (perhaps a builder pattern)
+ - [ ] retries (with cashed payload)
+ - [ ] async
