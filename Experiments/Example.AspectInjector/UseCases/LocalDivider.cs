@@ -4,11 +4,11 @@ using UC = UseCases;
 namespace Example.AspectInjector.UseCases
 {
     [LogExecution]
-    public class LocalAdder : UC.IAdd
+    public class LocalDivider : UC.IDivide
     {
-        private readonly UC.IAdd _target = new UC.Add();
+        private readonly UC.IDivide _target = new UC.Divide();
 
-        public int Execute(int a, int b)
+        public float Execute(float a, float b)
             => _target.Execute(a, b);
     }
 }

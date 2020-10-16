@@ -13,20 +13,17 @@ namespace Example.MockLike
             var sp = new ServiceCollection()
                 .AddScoped<IPrinter, Printer>()
                 .AddScoped<IHello, Hello>()
-                .AddScoped<IAdd, Add>()
-                .AddScoped<IThrow, Throw>()
+                .AddScoped<IDivide, Divide>()
                 .AddScoped<IUseCase<IHello>, UseCase<IHello>>()
-                .AddScoped<IUseCase<IAdd>, UseCase<IAdd>>()
-                .AddScoped<IUseCase<IThrow>, UseCase<IThrow>>()
+                .AddScoped<IUseCase<IDivide>, UseCase<IDivide>>()
                 .BuildServiceProvider();
 
             var greeter = sp.GetService<IUseCase<IHello>>();
-            var adder = sp.GetService<IUseCase<IAdd>>();
-            var thrower = sp.GetService<IUseCase<IThrow>>();
+            var divider = sp.GetService<IUseCase<IDivide>>();
 
             greeter.Do(x => x.Greet("World"));
-            var result = adder.Do(x => x.Execute(1,2));
-            thrower.Do(x => x.Execute());
+            var result = divider.Do(x => x.Execute(1,2));
+            divider.Do(x => x.Execute(3, 0));
         }
     }
 }

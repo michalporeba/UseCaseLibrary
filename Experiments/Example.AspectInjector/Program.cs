@@ -10,7 +10,7 @@ namespace Example.AspectInjector
             var printer = new Printer();
             
             var greeter = new LocalHello(printer);
-            var adder = new LocalAdder();
+            var adder = new LocalDivider();
             //var thrower = new LocalThrower();
             
             greeter.Greet("World");

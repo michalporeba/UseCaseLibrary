@@ -11,14 +11,12 @@ namespace Example.SimpleExpression
             
             var handler = new UseCaseHandler();
             var greeter = new Hello(printer);
-            var adder = new Add();
-            var thrower = new Throw();
+            var divider = new Divide();
 
             handler.Invoke(() => greeter.Greet("Michal"));
-            var result = handler.Query(() => adder.Execute(1,2));
+            var result = handler.Query(() => divider.Execute(1,2));
             Console.Out.WriteLine(result);
-            handler.Invoke(() => thrower.Execute());
-
+            handler.Invoke(() => divider.Execute(3, 0));
         }
     }
 }

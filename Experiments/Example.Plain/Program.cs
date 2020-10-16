@@ -10,22 +10,21 @@ namespace Example.Plain
             var printer = new Printer();
             
             var greeter = new Hello(printer);
-            var adder = new Add();
-            var thrower = new Throw();
+            var divider = new Divide();
             
             Console.Out.WriteLine("Log: Starting execution of Hello use case");
             greeter.Greet("Michal");
             Console.Out.WriteLine("Log: Finished execution of Hello use case");
             
             Console.Out.WriteLine("Log: Starting execution of Add use case");
-            var result = adder.Execute(1, 2);
+            var result = divider.Execute(1, 2);
             Console.Out.WriteLine("Log: Finished execution of Add use case");
             Console.Out.WriteLine(result);
 
             try
             {
                 Console.Out.WriteLine("Log: Starting execution of Throws use case");
-                thrower.Execute();
+                divider.Execute(3,0);
                 Console.Out.WriteLine("Log: Finished execution of Throws use case");   
             }
             catch (Exception ex)
