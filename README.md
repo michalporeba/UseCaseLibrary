@@ -121,37 +121,37 @@ project I will compare various AOP options available and a few alternatives.
 
 To compare different appraoches I will implment the same 
 (or as similar as possible) solutions using different teachniques. 
-All will be based on the same three, simple use cases: 
+All will be based on the same two, simple use cases: 
 
- - `Add` which can add two numbers. It is an example of a use case 
- which encapsulates a query behaviour.
+ - `Divide` which can divide two numbers. It is an example of a use case 
+ which encapsulates a query behaviour and has a potential of throwing an exception.
  - `Hello` which can say hello. It is an example of a use case 
  which encapsulates a command behaviour. 
- - `Throw` which is another command type use case, but this always
- throws an excatpion to test exception handling. 
-
+ 
 All examples in this document will assume the use cases have been instantiated
-and are represented by variables `adder`, `greeter` and `thrower` respectively.
+and are represented by variables `divisor` and `greeter` respectively. Divisor
+will be called twice, to return the result, or throw an exception.
 
 Without any additions the three use cases could be executed as follows:
 
 ```csharp
-greeter.Greet("World");         // prints: Hello, World!
-var result = adder.Add(1,2);    // result: 3
-thrower.Execute();              // throws SystemException();
+greeter.Greet("World");            // prints: Hello, World!
+var result = divisor.Divide(1,2);  // result: 0.5
+divisor.Divide(3,0);               // throws System.Exception();
 ```
 
 ### Option 1
-```
-handler.Invoke(usecase, x => x.Say("hello"));
-return handler.Query(usecase, x => x.Add(1,2));
+```csharp
+handler.Invoke(usecase, x => x.Greet("World"));
+return handler.Query(usecase, x => x.Divide(1,2));
+return handler.Query(usecase, x => x.Divide(3,0));
 ```
 Potentially the handler be static. The syntax is very concise, but it looks a bit odd and is not obvious what it is. Dependencies would haver to be both on the handler and the usecase to ensure both are instantiated by IoC container. 
 
 ### Option 2 (Example.FluidExecutor)
-```
-handler.On(usecase).Invoke(x => x.Say("hello"));
-return handler.Using(usecase).Query(x => x.Add(1,2));
+```csharp
+handler.On(usecase).Invoke(x => x.Greet("World"));
+return handler.Using(usecase).Query(x => x.Divide(1,2));
 ```
 Modern looking fluent interface, but essentially it is still the above option 1 and it is longer
 
@@ -161,10 +161,12 @@ This example is influenced by the Moq implementation of Mocks.
 
 ```
 var proxy = UseCase.Factory.Create<Hello>();
-proxy.Do(x => x.Say("hello"));
+proxy.Do(x => x.Greet("World"));
 
-var proxy = services.Resolve<IUseCase<Add>>();
-return proxy.Do(x => x.Add(1,2));
+var proxy = services.Resolve<IUseCase<Divide>>();
+return proxy.Do(x => x.Divide(1,2));
+
+return proxy.Do(x => x.Divide(3,0));
 ```
 
 Moq like approach with `Expression` provides access to the type, and isntance while maintaining fairly legible syntax. Proxy has to be created for each type independently, perhaps using a factory to have access to registrations. 
@@ -173,8 +175,9 @@ Autofac type resolvers could be used to make it less obtrusive, but likely it wo
 
 ### Option 4 (Example.VeryGeneric)
 ```
-handler.Do(usecase, "Hello");
+handler.Do(usecase, "World");
 return handler.Do(usecase, 1, 2));
+return handler.Do(usecase, 3, 0));
 ```
 Estetically pleasing, but it would work with only one standard method name. 
 It requires a lot of interfaces to be defined, the same as 16 `Action` and 16 `Func` defined by the .net framework. It is in line with what Microsoft has done, but some of 
@@ -190,8 +193,9 @@ Unless there is a way to simplify it this appraoch will not be of any use.
 
 ### Option 5 (Example.SimpleExpression)
 ```
-handler.Do(() => usecase.Say("Hello"))
-return handler.Do(() => usecase.Add(1,2));
+handler.Do(() => usecase.Greet("World"))
+return handler.Do(() => usecase.Divide(1,2));
+return handler.Do(() => usecase.Divide(3,0));
 ```
 
 Very flexiblty, but there is no obvious access to the use case type or instance.
