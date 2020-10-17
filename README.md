@@ -30,7 +30,7 @@ class Divisor
 
 The execution (perhaps in a WebAPI action):
 ```csharp
-_logger?.Log("Starting execution of Add use case");
+_logger?.Log("Starting execution of Divise use case");
 float result = 0.0;
 try 
 {
@@ -39,12 +39,12 @@ try
 }
 catch (Exception ex) 
 {
-    _logger?.Log("Failed to execut Add use case", ex);
+    _logger?.Log("Failed to execut Divise use case", ex);
     throw;
 }
 finally 
 {
-    _logger?.Log("Finished execution of Add use case");
+    _logger?.Log("Finished execution of Divise use case");
     return result;
 }
 ```
@@ -67,7 +67,7 @@ class Divisor
 
     public float Divise(float a, float b) 
     {
-        _logger?.Log("Starting execution of Add use case");
+        _logger?.Log("Starting execution of Divise use case");
         int result = null;
 
         try 
@@ -76,12 +76,12 @@ class Divisor
         }
         catch (Exception ex) 
         {
-            _logger?.Log("Failed to execut Add use case", ex);
+            _logger?.Log("Failed to execut Divise use case", ex);
             throw;
         }
         finally 
         {
-            _logger?.Log("Finished execution of Add use case");
+            _logger?.Log("Finished execution of Divise use case");
             return result;
         }       
     }
@@ -186,7 +186,7 @@ their methods tend to go agains OOP and might not be the best choice.
 There is also a practical problem. I was not able to make the query look like the example above, and instead this what I ended up with:
 
 ```
-return handler.Query<IQuery<int, int, int>, int, int, int>(adder, 1, 2);
+return handler.Query<IQuery<float, float, float>, float, float, float>(divisor, 1, 2);
 ```
 Unless there is a way to simplify it this appraoch will not be of any use. 
 
